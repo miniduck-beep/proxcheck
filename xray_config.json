@@ -1,0 +1,175 @@
+
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10000,
+      "protocol": "socks",
+      "tag": "Proxy1_vless_0_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10001,
+      "protocol": "socks",
+      "tag": "Proxy2_vless_1_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10002,
+      "protocol": "socks",
+      "tag": "NonWorking_vless_2_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    }
+  ],
+  "outbounds": [{
+  "tag": "direct",
+  "protocol": "freedom",
+  "settings": {
+    "domainStrategy": "UseIP"
+  },
+  "streamSettings": {
+    "sockopt": {}
+  }
+},
+{
+  "tag": "block",
+  "protocol": "blackhole",
+  "settings": {}
+},
+{
+  "tag": "dns-out",
+  "protocol": "dns",
+  "settings": {
+    "address": "1.1.1.1",
+    "network": "udp",
+    "port": 53
+  },
+  "streamSettings": {
+    "sockopt": {}
+  }
+},
+    {
+      "tag": "Proxy1_0",
+      "protocol": "vless",
+  "settings": {
+    "vnext": [{
+      "address": "84.246.85.62",
+      "port": 8880,
+      "users": [{
+        "id": "df0680ca-e43c-498d-ed86-8e196eedd012",
+        "encryption": "none",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "grpc",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "Proxy2_1",
+      "protocol": "vless",
+  "settings": {
+    "vnext": [{
+      "address": "a-lf-0.okamii.ir",
+      "port": 2095,
+      "users": [{
+        "id": "19b7d4d8-de95-41cf-b270-a310cc21f151",
+        "encryption": "none",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "NonWorking_2",
+      "protocol": "vless",
+  "settings": {
+    "vnext": [{
+      "address": "1.2.3.4",
+      "port": 12345,
+      "users": [{
+        "id": "non-existent-uuid",
+        "encryption": "none",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "protocol": ["dns"],
+        "outboundTag": "dns-out"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["Proxy1_vless_0_Inbound"],
+        "outboundTag": "Proxy1_0"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["Proxy2_vless_1_Inbound"],
+        "outboundTag": "Proxy2_1"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["NonWorking_vless_2_Inbound"],
+        "outboundTag": "NonWorking_2"
+      }
+    ]
+  }
+}
+
+
+

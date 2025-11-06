@@ -1,0 +1,133 @@
+#!/bin/bash
+
+# Proxy Test API Client
+# Usage: ./api_client [options]
+
+cd "$(dirname "$0")"
+
+# Default values
+HOST="localhost"
+PORT=9090
+ACTION="demo"
+VERBOSE=false
+TEST_NAME=""
+PROXY_COUNT=20
+CONFIG_FILE=""
+START_PORT=20000
+TEST_ID=""
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --host)
+            HOST="$2"
+            shift 2
+            ;;
+        -p|--port)
+            PORT="$2"
+            shift 2
+            ;;
+        -a|--action)
+            ACTION="$2"
+            shift 2
+            ;;
+        -n|--name)
+            TEST_NAME="$2"
+            shift 2
+            ;;
+        -c|--count)
+            PROXY_COUNT="$2"
+            shift 2
+            ;;
+        --config)
+            CONFIG_FILE="$2"
+            shift 2
+            ;;
+        --start-port)
+            START_PORT="$2"
+            shift 2
+            ;;
+        --test-id)
+            TEST_ID="$2"
+            shift 2
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -h|--help)
+            echo "Proxy Test API Client"
+            echo ""
+            echo "Usage: $0 [options]"
+            echo ""
+            echo "Options:"
+            echo "  --host HOST          Server host (default: localhost)"
+            echo "  -p, --port PORT      Server port (default: 9090)"
+            echo "  -a, --action ACTION  Action to perform"
+            echo "                       (health, status, config, list, test, results, export, demo)"
+            echo "  -n, --name NAME      Test name"
+            echo "  -c, --count COUNT   Number of proxies to test (default: 20)"
+            echo "  --config FILE       Config file path"
+            echo "  --start-port PORT   Start port for Xray (default: 20000)"
+            echo "  --test-id ID        Test ID for results/export"
+            echo "  -v, --verbose       Enable verbose output"
+            echo "  -h, --help          Show this help"
+            echo ""
+            echo "Examples:"
+            echo "  $0 --action health"
+            echo "  $0 --action test --name \"my-test\" --count 30"
+            echo "  $0 --action results --test-id test_20251030123045"
+            echo "  $0 --action demo --verbose"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use -h or --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Build the command
+CMD="go run improved_client.go --host \"$HOST\" -port $PORT -action \"$ACTION\""
+
+if [ "$VERBOSE" = true ]; then
+    CMD="$CMD -verbose"
+fi
+
+if [ -n "$TEST_NAME" ]; then
+    CMD="$CMD -name \"$TEST_NAME\""
+fi
+
+if [ -n "$PROXY_COUNT" ]; then
+    CMD="$CMD -count $PROXY_COUNT"
+fi
+
+if [ -n "$CONFIG_FILE" ]; then
+    CMD="$CMD -config \"$CONFIG_FILE\""
+fi
+
+if [ -n "$START_PORT" ]; then
+    CMD="$CMD -start-port $START_PORT"
+fi
+
+if [ -n "$TEST_ID" ]; then
+    CMD="$CMD -test-id \"$TEST_ID\""
+fi
+
+echo "🚀 Proxy Test API Client"
+echo "📍 Server: $HOST:$PORT"
+echo "🎯 Action: $ACTION"
+
+if [ -n "$TEST_NAME" ]; then
+    echo "📝 Test name: $TEST_NAME"
+fi
+
+if [ -n "$TEST_ID" ]; then
+    echo "🆔 Test ID: $TEST_ID"
+fi
+
+echo ""
+
+# Run the client
+eval $CMD

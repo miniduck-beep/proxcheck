@@ -1,0 +1,44 @@
+[Unit]
+Description=Proxy Test API Server
+Documentation=https://github.com/your-username/proxy-test-api
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=proxytest
+Group=proxytest
+WorkingDirectory=/opt/proxy-test-api
+ExecStart=/opt/proxy-test-api/cmd/api/api_server -port 8080 -data-dir /var/lib/proxy-test-api
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=proxy-test-api
+
+# Environment variables
+Environment=PATH=/usr/local/go/bin:/usr/bin:/bin
+Environment=GOPATH=/opt/go
+Environment=PROXY_TEST_API_CONFIG=/opt/proxy-test-api/deploy/config.yaml
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/proxy-test-api
+ReadWritePaths=/var/log/proxy-test-api
+ReadWritePaths=/tmp
+ReadWritePaths=/opt/proxy-test-api
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Process management
+KillMode=mixed
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

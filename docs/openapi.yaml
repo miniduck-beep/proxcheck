@@ -1,0 +1,305 @@
+openapi: 3.0.0
+info:
+  title: Proxy Test API
+  description: API для тестирования прокси-серверов
+  version: 1.0.0
+  contact:
+    name: Proxy Test Team
+    email: support@proxytest.com
+
+servers:
+  - url: http://localhost:8080
+    description: Development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Проверка состояния API сервера
+      responses:
+        '200':
+          description: Сервер работает нормально
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  timestamp:
+                    type: integer
+                    example: 1698636649
+                  version:
+                    type: string
+                    example: 1.0.0
+
+  /api/v1/status:
+    get:
+      summary: System status
+      description: Получение детального статуса системы
+      responses:
+        '200':
+          description: Статус системы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system:
+                    type: string
+                    example: proxy-test-api
+                  status:
+                    type: string
+                    example: running
+                  active_tests:
+                    type: integer
+                    example: 2
+                  total_results:
+                    type: integer
+                    example: 10
+
+  /api/v1/config:
+    get:
+      summary: Get configuration
+      description: Получение текущей конфигурации системы
+      responses:
+        '200':
+          description: Конфигурация системы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  config:
+                    type: object
+                    properties:
+                      xray:
+                        type: object
+                        properties:
+                          start_port:
+                            type: integer
+                            example: 10000
+                          log_level:
+                            type: string
+                            example: error
+                      proxy:
+                        type: object
+                        properties:
+                          check_method:
+                            type: string
+                            example: ip
+                          ip_check_url:
+                            type: string
+                            example: https://api.ipify.org?format=text
+
+  /api/v1/tests:
+    post:
+      summary: Start new test
+      description: Запуск нового теста прокси
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - proxy_count
+              properties:
+                name:
+                  type: string
+                  description: Название теста
+                  example: nightly-test
+                proxy_count:
+                  type: integer
+                  description: Количество прокси для тестирования
+                  minimum: 1
+                  maximum: 100
+                  example: 20
+                timeout:
+                  type: integer
+                  description: Таймаут в секундах
+                  minimum: 1
+                  maximum: 300
+                  example: 30
+      responses:
+        '200':
+          description: Тест успешно запущен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_id:
+                    type: string
+                    example: test_20251030053049
+                  status:
+                    type: string
+                    example: started
+                  message:
+                    type: string
+                    example: Test started successfully
+        '400':
+          description: Неверные параметры запроса
+
+  /api/v1/tests/{id}:
+    get:
+      summary: Get test status
+      description: Получение статуса конкретного теста
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID теста
+      responses:
+        '200':
+          description: Статус теста
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                    enum: [pending, running, completed, failed, stopped]
+                  proxy_count:
+                    type: integer
+        '404':
+          description: Тест не найден
+
+    delete:
+      summary: Stop test
+      description: Остановка выполнения теста
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Тест успешно остановлен
+        '404':
+          description: Тест не найден
+
+  /api/v1/results/{id}:
+    get:
+      summary: Get test results
+      description: Получение результатов теста
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Результаты теста
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_id:
+                    type: string
+                  total_proxies:
+                    type: integer
+                  successful:
+                    type: integer
+                  failed:
+                    type: integer
+                  success_rate:
+                    type: number
+                  average_latency:
+                    type: string
+                  working_proxies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        protocol:
+                          type: string
+                        server:
+                          type: string
+                        port:
+                          type: integer
+                        latency:
+                          type: string
+                        rank:
+                          type: integer
+
+components:
+  schemas:
+    Test:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum: [pending, running, completed, failed, stopped]
+        proxy_count:
+          type: integer
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+
+    TestResult:
+      type: object
+      properties:
+        test_id:
+          type: string
+        total_proxies:
+          type: integer
+        successful:
+          type: integer
+        failed:
+          type: integer
+        success_rate:
+          type: number
+        average_latency:
+          type: string
+        working_proxies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProxyInfo'
+
+    ProxyInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        protocol:
+          type: string
+        server:
+          type: string
+        port:
+          type: integer
+        latency:
+          type: string
+        rank:
+          type: integer
+
+tags:
+  - name: Health
+    description: Health checks
+  - name: Tests
+    description: Test management
+  - name: Results
+    description: Test results
+  - name: Configuration
+    description: System configuration

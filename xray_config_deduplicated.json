@@ -1,0 +1,509 @@
+
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10000,
+      "protocol": "socks",
+      "tag": "telegram 🚀 DailyV2ry_vmess_0_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10001,
+      "protocol": "socks",
+      "tag": "🇩🇪 DE | 🔓 VMESS | @prrofile_purple [133]_vmess_1_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10002,
+      "protocol": "socks",
+      "tag": "@HiByeVPNN👈⚡❤️‍🔥_vmess_2_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10003,
+      "protocol": "socks",
+      "tag": "telegram 🍀 DailyV2ry_vmess_3_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10004,
+      "protocol": "socks",
+      "tag": "🇭🇰HK-47.239.81.113-5673_vmess_4_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10005,
+      "protocol": "socks",
+      "tag": "@V2rayMiner_vmess_5_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10006,
+      "protocol": "socks",
+      "tag": "@Vip_Security join us - 337 _vmess_6_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10007,
+      "protocol": "socks",
+      "tag": "[🏁]t.me/ConfigsHub_vmess_7_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10008,
+      "protocol": "socks",
+      "tag": "🇱🇹LT-45.87.175.155-0230_shadowsocks_8_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10009,
+      "protocol": "socks",
+      "tag": "🇳🇱[openproxylist.com] ss-NL_shadowsocks_9_Inbound",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 0
+      }
+    }
+  ],
+  "outbounds": [{
+  "tag": "direct",
+  "protocol": "freedom",
+  "settings": {
+    "domainStrategy": "UseIP"
+  },
+  "streamSettings": {
+    "sockopt": {}
+  }
+},
+{
+  "tag": "block",
+  "protocol": "blackhole",
+  "settings": {}
+},
+{
+  "tag": "dns-out",
+  "protocol": "dns",
+  "settings": {
+    "address": "1.1.1.1",
+    "network": "udp",
+    "port": 53
+  },
+  "streamSettings": {
+    "sockopt": {}
+  }
+},
+    {
+      "tag": "telegram 🚀 DailyV2ry_0",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "54.36.163.216",
+      "port": 550,
+      "users": [{
+        "id": "ffae7ffe-c13a-4ef1-aab4-e3e001dccf27",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "🇩🇪 DE | 🔓 VMESS | @prrofile_purple [133]_1",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "dede.bedonemarz.site",
+      "port": 444,
+      "users": [{
+        "id": "96e0b619-bb98-49cb-a3fd-f0a1cebdd433",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "@HiByeVPNN👈⚡❤️‍🔥_2",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "2001:bc8:32d7:302::10",
+      "port": 44579,
+      "users": [{
+        "id": "8e34e170-13ae-4892-9d20-05962acc9f84",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "none",
+    "wsSettings": {
+      "path": "",
+      "host": "",
+      "headers": {
+        "Host": ""
+      }
+    },
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "telegram 🍀 DailyV2ry_3",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "yichueng.org",
+      "port": 443,
+      "users": [{
+        "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+        "alterId": 0,
+        "security": "tls",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "tls",
+    "tlsSettings": {
+      "serverName": "yichueng.org",
+      "allowInsecure": false,
+      "fingerprint": ""
+    },
+    "wsSettings": {
+      "path": "linkvws",
+      "host": "yichueng.org",
+      "headers": {
+        "Host": "yichueng.org"
+      }
+    },
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "🇭🇰HK-47.239.81.113-5673_4",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "47.239.81.113",
+      "port": 17002,
+      "users": [{
+        "id": "97798ac2-80d4-4e7f-84cc-8221244ed741",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "none",
+    "wsSettings": {
+      "path": "/arki?ed=2048",
+      "host": "",
+      "headers": {
+        "Host": ""
+      }
+    },
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "@V2rayMiner_5",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "23.162.200.182",
+      "port": 22324,
+      "users": [{
+        "id": "04621bae-ab36-11ec-b909-0242ac120002",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "@Vip_Security join us - 337 _6",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "57.129.28.69",
+      "port": 443,
+      "users": [{
+        "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+        "alterId": 0,
+        "security": "tls",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "tls",
+    "tlsSettings": {
+      "serverName": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+      "allowInsecure": false,
+      "fingerprint": ""
+    },
+    "wsSettings": {
+      "path": "/linkvws",
+      "host": "baradiha.com",
+      "headers": {
+        "Host": "baradiha.com"
+      }
+    },
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "[🏁]t.me/ConfigsHub_7",
+      "protocol": "vmess",
+  "settings": {
+    "vnext": [{
+      "address": "152.42.236.174",
+      "port": 48636,
+      "users": [{
+        "id": "c7235ac2-8f71-44d9-8935-34e1c9e2024a",
+        "alterId": 0,
+        "security": "auto",
+        "level": 0
+      }]
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "🇱🇹LT-45.87.175.155-0230_8",
+      "protocol": "shadowsocks",
+  "settings": {
+    "servers": [{
+      "address": "45.87.175.155",
+      "port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    },
+    {
+      "tag": "🇳🇱[openproxylist.com] ss-NL_9",
+      "protocol": "shadowsocks",
+  "settings": {
+    "servers": [{
+      "address": "45.87.175.28",
+      "port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "oZIoA69Q8yhcQV8ka3Pa3A"
+    }]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "none",
+    
+    "sockopt": {}
+  }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "protocol": ["dns"],
+        "outboundTag": "dns-out"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["telegram 🚀 DailyV2ry_vmess_0_Inbound"],
+        "outboundTag": "telegram 🚀 DailyV2ry_0"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["🇩🇪 DE | 🔓 VMESS | @prrofile_purple [133]_vmess_1_Inbound"],
+        "outboundTag": "🇩🇪 DE | 🔓 VMESS | @prrofile_purple [133]_1"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["@HiByeVPNN👈⚡❤️‍🔥_vmess_2_Inbound"],
+        "outboundTag": "@HiByeVPNN👈⚡❤️‍🔥_2"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["telegram 🍀 DailyV2ry_vmess_3_Inbound"],
+        "outboundTag": "telegram 🍀 DailyV2ry_3"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["🇭🇰HK-47.239.81.113-5673_vmess_4_Inbound"],
+        "outboundTag": "🇭🇰HK-47.239.81.113-5673_4"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["@V2rayMiner_vmess_5_Inbound"],
+        "outboundTag": "@V2rayMiner_5"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["@Vip_Security join us - 337 _vmess_6_Inbound"],
+        "outboundTag": "@Vip_Security join us - 337 _6"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["[🏁]t.me/ConfigsHub_vmess_7_Inbound"],
+        "outboundTag": "[🏁]t.me/ConfigsHub_7"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["🇱🇹LT-45.87.175.155-0230_shadowsocks_8_Inbound"],
+        "outboundTag": "🇱🇹LT-45.87.175.155-0230_8"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["🇳🇱[openproxylist.com] ss-NL_shadowsocks_9_Inbound"],
+        "outboundTag": "🇳🇱[openproxylist.com] ss-NL_9"
+      }
+    ]
+  }
+}
+
+
+

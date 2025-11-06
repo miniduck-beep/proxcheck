@@ -1,0 +1,94 @@
+# Proxy Test API Configuration Example
+# Copy this file to config.yaml and modify as needed
+
+server:
+  # Server configuration
+  host: "localhost"
+  port: 9090
+  
+  # Security settings
+  cors:
+    allowed_origins:
+      - "*"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+    allowed_headers:
+      - "Content-Type"
+      - "Authorization"
+
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+
+api:
+  # API settings
+  version: "v1"
+  base_path: "/api"
+  
+  # Test settings
+  max_concurrent_tests: 5
+  max_proxies_per_test: 100
+  default_timeout: 30
+
+proxy:
+  # Proxy testing settings
+  check_method: "ip"
+  ip_check_url: "https://api.ipify.org?format=text"
+  timeout: 30
+  
+  # Xray settings
+  xray:
+    start_port: 20000
+    log_level: "error"
+    config_template: "/path/to/xray/config.json"
+
+storage:
+  # Data storage settings
+  type: "memory"  # memory, file, database
+  
+  # File storage (if type is file)
+  file:
+    data_dir: "/tmp/proxy-test-api"
+    max_file_size: "10MB"
+    
+  # Database settings (if type is database)
+  database:
+    driver: "sqlite"  # sqlite, postgres, mysql
+    dsn: "proxy_test.db"
+    max_connections: 10
+
+logging:
+  # Logging configuration
+  level: "info"  # debug, info, warn, error
+  format: "text"  # text, json
+  output: "stdout"  # stdout, file
+  
+  # File logging (if output is file)
+  file:
+    path: "logs/proxy-test-api.log"
+    max_size: "10MB"
+    max_backups: 5
+    max_age: 30
+
+monitoring:
+  # Monitoring and metrics
+  enabled: true
+  
+  # Health checks
+  health_check:
+    enabled: true
+    interval: "30s"
+    
+  # Metrics
+  metrics:
+    enabled: true
+    path: "/metrics"
+
+# Development settings
+development:
+  debug: false
+  verbose: false

@@ -1,0 +1,126 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Build artifacts
+bin/
+dist/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+backup/
+
+# Data directories
+/data/
+/tmp/proxy-test-api/
+
+# API data
+api_data/
+test_results/
+
+# Configuration files (except example)
+config.yaml
+config.json
+!config.example.yaml
+!config.example.json
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Certificate files
+*.pem
+*.crt
+*.key
+
+# Archive files
+*.tar.gz
+*.zip
+*.rar
+
+# Documentation build
+site/
+docs/_build/
+
+# Coverage reports
+coverage.txt
+coverage.html
+
+# Profiling output
+*.prof
+*.trace
+
+# Go module files (keep go.mod and go.sum)
+go.sum
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.lib
+
+# Build output
+build/
+out/
+
+# Development tools
+.devcontainer/
+
+# Local development files
+local/
+development/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache directories
+.cache/
+node_modules/
+
+# API client generated files
+client/
+
+# Test fixtures
+testdata/
+fixtures/
