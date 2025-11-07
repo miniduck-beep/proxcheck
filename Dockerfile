@@ -1,34 +1,35 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.24 AS builder
-
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
-ARG TARGETOS
-ARG TARGETARCH
-ARG GIT_TAG
-ARG GIT_COMMIT
-ARG USERNAME=kutovoys
-ARG REPOSITORY_NAME=xray-checker
-
-ENV CGO_ENABLED=0
-ENV GO111MODULE=on
-
-WORKDIR /go/src/github.com/${USERNAME}/${REPOSITORY_NAME}
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . .
-
-RUN CGO_ENABLED=${CGO_ENABLED} GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
-  go build -ldflags="-X main.version=${GIT_TAG} -X main.commit=${GIT_COMMIT}" -a -installsuffix cgo -o /usr/bin/xray-checker .
-
-FROM --platform=${BUILDPLATFORM:-linux/amd64} gcr.io/distroless/static:nonroot
-
-LABEL org.opencontainers.image.source=https://github.com/${USERNAME}/${REPOSITORY_NAME}
+# Этап 1: Сборка
+FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
-COPY --from=builder /usr/bin/xray-checker /
-USER nonroot:nonroot
 
-ENTRYPOINT ["/xray-checker"]
+# Копируем только необходимые файлы
+COPY go.mod go.sum ./
+COPY cmd/api/main.go ./cmd/api/
+COPY xray_config_vless_100.txt .
+
+# Загружаем зависимости
+RUN go mod tidy
+RUN go mod download
+
+# Устанавливаем Xray
+RUN apk add --no-cache wget unzip &&     wget -O /usr/local/bin/xray.zip "https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip" &&     unzip /usr/local/bin/xray.zip -d /usr/local/bin/xray-temp &&     mv /usr/local/bin/xray-temp/xray /usr/local/bin/xray &&     mv /usr/local/bin/xray-temp/geoip.dat /usr/local/bin/geoip.dat &&     mv /usr/local/bin/xray-temp/geosite.dat /usr/local/bin/geosite.dat &&     rm -rf /usr/local/bin/xray-temp /usr/local/bin/xray.zip &&     chmod +x /usr/local/bin/xray
+
+# Собираем приложение
+RUN cd cmd/api && go build -o /app/api-server
+
+# Этап 2: Финальный образ
+FROM alpine:latest
+
+WORKDIR /app
+
+# Копируем бинарник и файл с прокси
+COPY --from=builder /app/api-server .
+COPY --from=builder /app/xray_config_vless_100.txt .
+COPY --from=builder /usr/local/bin/xray /usr/local/bin/xray
+COPY --from=builder /usr/local/bin/geoip.dat /usr/local/bin/geoip.dat
+COPY --from=builder /usr/local/bin/geosite.dat /usr/local/bin/geosite.dat
+
+EXPOSE 8080
+
+CMD ["./api-server"]

@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"xray-checker/models"
-	"xray-checker/utils"
+	"projectx/models"
+	"projectx/utils"
 )
 
 func ParseProxyURL(proxyURL string) (*models.ProxyConfig, error) {
